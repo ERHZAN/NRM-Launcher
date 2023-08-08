@@ -1,0 +1,3 @@
+﻿  MainWindow.cpp
+  MainWindow.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  NrmLauncher.vcxproj -> D:\CPP\WinForms\NRMLauncher\x64\Release\NrmLauncher.exe
