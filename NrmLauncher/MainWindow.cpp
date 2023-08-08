@@ -1,4 +1,7 @@
 #include "MainWindow.h"
+#include "parseConfig.h"
+#include "parseSubmods.h"
+#include <iostream>
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -7,13 +10,20 @@ int main(array<String^>^ args) {
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::EnableVisualStyles();
 
+	// Parse launcher config
+	Config cfg;
+	parseConfig(cfg);
 
-	const char* windowText {"<Victoria 2 HoD(v3.04)> <New Realism mod (v1.25.4)> <Checksum (GJBI)>"};
-	// gcnew String(temp.c_str())
+	// Parse game submods
+	std::vector<std::string> submods;
+	parseSubmods(submods);
+	for (int i = 0; i < submods.size(); i++) {
+		std::cout << submods[i] << std::endl;
+	}
+	std::vector<std::string>* ptr = &submods;
 
-	NrmLauncher::MainWindow mWindow(gcnew String(windowText));
-
+	// Initialize form
+	NrmLauncher::MainWindow mWindow(gcnew String(cfg.m_name.c_str()), ptr);
 	Application::Run(% mWindow);
-
 	return 0;
 }

@@ -1,3 +1,5 @@
-﻿  MainWindow.cpp
+﻿  parseSubmods.cpp
+D:\CPP\WinForms\NRMLauncher\NrmLauncher\parseSubmods.cpp(20,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+D:\CPP\WinForms\NRMLauncher\NrmLauncher\parseSubmods.cpp(22,19): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   MainWindow.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   NrmLauncher.vcxproj -> D:\CPP\WinForms\NRMLauncher\x64\Release\NrmLauncher.exe
