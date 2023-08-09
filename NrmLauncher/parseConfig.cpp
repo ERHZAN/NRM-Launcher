@@ -2,17 +2,17 @@
 #include <windows.h>
 
 void parseConfig(Config& config) {
-	std::fstream fileConfig;
+	std::wfstream fileConfig;
 
 	fileConfig.open("launcher.cfg", std::ios::in);
 
-	std::string tempStr;
+	std::wstring tempStr;
 
 	bool windowName = false;
 	
 	if (fileConfig.is_open()) {
 		while (getline(fileConfig, tempStr)) {
-			if (tempStr.find("WindowName:") != -1) {
+			if (tempStr.find(L"WindowName:") != -1) {
 				windowName = true;
 				continue;
 			}

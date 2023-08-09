@@ -15,15 +15,16 @@ int main(array<String^>^ args) {
 	parseConfig(cfg);
 
 	// Parse game submods
-	std::vector<std::string> submods;
-	parseSubmods(submods);
-	for (int i = 0; i < submods.size(); i++) {
-		std::cout << submods[i] << std::endl;
-	}
-	std::vector<std::string>* ptr = &submods;
+	std::vector<std::wstring> submodsNames;
+	std::vector<std::wstring> submodsPaths;
+	std::vector<std::wstring> submodsSelected;
+	parseSubmods(submodsNames, submodsPaths);
+
+	std::wstring smdFullArgs;
 
 	// Initialize form
-	NrmLauncher::MainWindow mWindow(gcnew String(cfg.m_name.c_str()), ptr);
+	NrmLauncher::MainWindow mWindow(gcnew String(cfg.m_name.c_str()), submodsNames,
+		submodsPaths, submodsSelected, smdFullArgs);
 	Application::Run(% mWindow);
 	return 0;
 }

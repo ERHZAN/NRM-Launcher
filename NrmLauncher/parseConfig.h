@@ -4,7 +4,7 @@
 #include <filesystem>
 
 struct Config {
-	std::string m_name;
+	std::wstring m_name;
 };
 
 void parseConfig(Config& config);

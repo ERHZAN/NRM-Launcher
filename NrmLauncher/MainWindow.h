@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <filesystem>
+#include <iostream>
 
 namespace NrmLauncher {
 
@@ -19,8 +20,14 @@ namespace NrmLauncher {
 	{
 	public:
 		String^ m_wName;
-		std::vector<std::string>* m_submods;
-		MainWindow(String^ wName, std::vector<std::string>* arr) : m_wName(wName), m_submods(arr)
+		std::vector<std::wstring>& m_submodsNames;
+		std::vector<std::wstring>& m_submodsPaths;
+		std::vector<std::wstring>& m_submodsSelected;
+		std::wstring& m_fullCmdArgs;
+		MainWindow(String^ wName, std::vector<std::wstring>& submodsNames, std::vector<std::wstring>& submodsPaths,
+			std::vector<std::wstring>& submodsSelected, std::wstring& cmdFullArgs)
+			: m_wName(wName), m_submodsNames(submodsNames), m_submodsPaths(submodsPaths), m_fullCmdArgs(cmdFullArgs),
+			m_submodsSelected(submodsSelected)
 		{
 			InitializeComponent();
 			//
@@ -30,10 +37,52 @@ namespace NrmLauncher {
 		String^ getName() {
 			return m_wName;
 		}
-		std::vector<std::string>& getSubmods() {
-			return *m_submods;
+		const std::vector<std::wstring>& getVector() {
+			return m_submodsNames;
+		}
+		cli::array<Object^>^ getSubmodsNames() {
+			std::vector<std::wstring> tmpVector = getVector();
+			cli::array<System::Object^>^ arr = gcnew cli::array<System::Object^>(tmpVector.size());
+
+			for (int i = 0; i < tmpVector.size(); i++) {
+				arr[i] = gcnew String(tmpVector[i].c_str());
+			}
+
+			return arr;
+		}
+		const std::vector<std::wstring>& getSubmodsPathsVector() {
+			return m_submodsPaths;
+		}
+		std::vector<std::wstring>& getSubmodsSelectedVector() {
+			return m_submodsSelected;
+		}
+		void pushSelectedSubmod(std::wstring str) {
+			m_submodsSelected.push_back(str);
+		}
+		std::wstring& getCmdArgsStr() {
+			return m_fullCmdArgs;
+		}
+		void calcCmdArgs() {
+			std::vector<std::wstring>& temp = getSubmodsSelectedVector();
+
+			std::wstring& tmpStr = getCmdArgsStr();
+			for (const auto& elem : temp) {
+				tmpStr += L" -mod=";
+				tmpStr += elem;
+				tmpStr += L".mod";
+			}
 		}
 		void startGame(LPCTSTR lpApplicationName) {
+			const std::vector<std::wstring>& tmp1 = getSubmodsPathsVector();
+			std::vector<std::wstring>& tmp2 = getSubmodsSelectedVector();
+
+			for (int i = 0; i < this->checkedListBox1->Items->Count; i++) {
+				if (this->checkedListBox1->GetItemChecked(i)) {
+					pushSelectedSubmod(tmp1[i]);
+				}
+			}
+
+			// -mod=submod/somemod.mod
 			auto currentPath = std::filesystem::current_path();
 			currentPath += "/Game";
 			std::filesystem::current_path(currentPath);
@@ -45,10 +94,14 @@ namespace NrmLauncher {
 			ZeroMemory(&si, sizeof(si));
 			si.cb = sizeof(si);
 			ZeroMemory(&pi, sizeof(pi));
-			TCHAR cmdArg[] = TEXT(" -mod=submods/dark font.mod");
+			//std::cout << "test1" << std::endl;
+			calcCmdArgs();
+			//std::cout << "test2" << std::endl;
+			std::wstring tempStr = getCmdArgsStr();
+			//std::cout << "test3" << std::endl;
 
 			CreateProcess(lpApplicationName,   // the path
-				cmdArg,			// Command line
+				tempStr.data(),			// Command line
 				NULL,           // Process handle not inheritable
 				NULL,           // Thread handle not inheritable
 				FALSE,          // Set handle inheritance to FALSE
@@ -116,7 +169,7 @@ namespace NrmLauncher {
 			this->playGame->ForeColor = System::Drawing::Color::White;
 			this->playGame->Location = System::Drawing::Point(483, 408);
 			this->playGame->Name = L"playGame";
-			this->playGame->Size = System::Drawing::Size(205, 70);
+			this->playGame->Size = System::Drawing::Size(205, 63);
 			this->playGame->TabIndex = 0;
 			this->playGame->Text = L"Начать игру";
 			this->playGame->UseVisualStyleBackColor = false;
@@ -137,16 +190,18 @@ namespace NrmLauncher {
 			// 
 			this->checkedListBox1->BackColor = System::Drawing::Color::Moccasin;
 			this->checkedListBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->checkedListBox1->Font = (gcnew System::Drawing::Font(L"a_OldTyper", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->checkedListBox1->Font = (gcnew System::Drawing::Font(L"Cambria", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->checkedListBox1->ForeColor = System::Drawing::Color::Navy;
+			this->checkedListBox1->ForeColor = System::Drawing::Color::Indigo;
 			this->checkedListBox1->FormattingEnabled = true;
-			this->checkedListBox1->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Test1", L"Test2", L"Test3", L"Test4" });
+			this->checkedListBox1->Items->AddRange(getSubmodsNames());
 			this->checkedListBox1->Location = System::Drawing::Point(12, 410);
 			this->checkedListBox1->Margin = System::Windows::Forms::Padding(5);
 			this->checkedListBox1->Name = L"checkedListBox1";
-			this->checkedListBox1->Size = System::Drawing::Size(180, 63);
+			this->checkedListBox1->Size = System::Drawing::Size(235, 60);
 			this->checkedListBox1->TabIndex = 1;
+			this->checkedListBox1->TabStop = false;
+			this->checkedListBox1->UseTabStops = false;
 			// 
 			// MainWindow
 			// 
@@ -160,9 +215,9 @@ namespace NrmLauncher {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Fixed3D;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
+			this->Text = getName();
 			this->Name = L"MainWindow";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
-			this->Text = getName();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 

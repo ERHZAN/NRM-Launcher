@@ -5,4 +5,4 @@
 #include <windows.h>
 #include <string>
 
-void parseSubmods(std::vector<std::string>& arr);
+void parseSubmods(std::vector<std::wstring>& arr1, std::vector<std::wstring>& arr2);
