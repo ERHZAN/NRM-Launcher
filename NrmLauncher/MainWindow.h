@@ -143,7 +143,7 @@ namespace NrmLauncher {
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте 
+		/// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте
 		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		void InitializeComponent()
@@ -194,14 +194,12 @@ namespace NrmLauncher {
 				static_cast<System::Byte>(204)));
 			this->checkedListBox1->ForeColor = System::Drawing::Color::Indigo;
 			this->checkedListBox1->FormattingEnabled = true;
-			this->checkedListBox1->Items->AddRange(getSubmodsNames());
 			this->checkedListBox1->Location = System::Drawing::Point(12, 410);
 			this->checkedListBox1->Margin = System::Windows::Forms::Padding(5);
 			this->checkedListBox1->Name = L"checkedListBox1";
 			this->checkedListBox1->Size = System::Drawing::Size(235, 60);
 			this->checkedListBox1->TabIndex = 1;
-			this->checkedListBox1->TabStop = false;
-			this->checkedListBox1->UseTabStops = false;
+			this->checkedListBox1->Items->AddRange(getSubmodsNames());
 			// 
 			// MainWindow
 			// 
@@ -215,8 +213,8 @@ namespace NrmLauncher {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::Fixed3D;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
-			this->Text = getName();
 			this->Name = L"MainWindow";
+			this->Text = getName();
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
