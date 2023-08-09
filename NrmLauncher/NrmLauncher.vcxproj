@@ -112,7 +112,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="mainWindowMethods.cpp" />
     <ClCompile Include="parseConfig.cpp" />
     <ClCompile Include="parseSubmods.cpp" />
   </ItemGroup>

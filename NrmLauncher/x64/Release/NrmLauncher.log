@@ -1,4 +1,6 @@
 ﻿  MainWindow.cpp
-D:\CPP\WinForms\NRMLauncher\NrmLauncher\MainWindow.h(45,87): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  mainWindowMethods.cpp
+D:\CPP\WinForms\NRMLauncher\NrmLauncher\mainWindowMethods.cpp(5,85): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Создание кода...
   MainWindow.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   NrmLauncher.vcxproj -> D:\CPP\WinForms\NRMLauncher\x64\Release\NrmLauncher.exe
