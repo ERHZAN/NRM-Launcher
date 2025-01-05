@@ -1,4 +1,0 @@
-D:\CPP\WinForms\NrmLauncher\NrmLauncher\x64\Release\NrmLauncher.vcxproj.AssemblyReference.cache
-D:\CPP\WinForms\NrmLauncher\NrmLauncher\x64\Release\NrmLauncher.vcxproj.SuggestedBindingRedirects.cache
-D:\CPP\WinForms\NrmLauncher\NrmLauncher\x64\Release\NrmLauncher.MainWindow.resources
-D:\CPP\WinForms\NrmLauncher\NrmLauncher\x64\Release\NrmLauncher.vcxproj.GenerateResource.cache
